@@ -30,7 +30,7 @@ func Decode(r io.Reader) (*File, error) {
 			continue // ignore comments
 		} else if strings.HasPrefix(line, "v ") {
 			// vertex
-			cols := strings.Split(line[2:], " ")
+			cols := strings.Split(strings.TrimSpace(line[2:]), " ")
 			if len(cols) < 1 || len(cols) > 4 {
 				return nil, makeErr("invalid vertex definition")
 			}
@@ -45,7 +45,7 @@ func Decode(r io.Reader) (*File, error) {
 			f.Vertices = append(f.Vertices, v)
 		} else if strings.HasPrefix(line, "vt ") {
 			// texture coordinate
-			cols := strings.Split(line[3:], " ")
+			cols := strings.Split(strings.TrimSpace(line[3:]), " ")
 			if len(cols) < 2 || len(cols) > 3 {
 				return nil, makeErr("invalid texture coordinate definition")
 			}
@@ -60,7 +60,7 @@ func Decode(r io.Reader) (*File, error) {
 			f.TexCoords = append(f.TexCoords, uv)
 		} else if strings.HasPrefix(line, "vn ") {
 			// normal
-			cols := strings.Split(line[3:], " ")
+			cols := strings.Split(strings.TrimSpace(line[3:]), " ")
 			if len(cols) != 3 {
 				return nil, makeErr("invalid normal definition")
 			}
@@ -80,7 +80,7 @@ func Decode(r io.Reader) (*File, error) {
 			f.Normals = append(f.Normals, n)
 		} else if strings.HasPrefix(line, "f ") {
 			// face
-			cols := strings.Split(line[2:], " ")
+			cols := strings.Split(strings.TrimSpace(line[2:]), " ")
 			if len(cols) < 3 {
 				return nil, makeErr("invalid face definition, need at least 3 vertices")
 			}
