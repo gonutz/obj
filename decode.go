@@ -10,6 +10,19 @@ import (
 	"strings"
 )
 
+type File struct {
+	Vertices  [][4]float32
+	TexCoords [][3]float32
+	Normals   [][3]float32
+	Faces     [][]FaceVertex
+}
+
+type FaceVertex struct {
+	VertexIndex   int
+	TexCoordIndex int
+	NormalIndex   int
+}
+
 func Decode(r io.Reader) (*File, error) {
 	data, err := ioutil.ReadAll(r)
 	if err != nil {
@@ -120,17 +133,4 @@ func Decode(r io.Reader) (*File, error) {
 		}
 	}
 	return &f, err
-}
-
-type File struct {
-	Vertices  [][4]float32
-	TexCoords [][3]float32
-	Normals   [][3]float32
-	Faces     [][]FaceVertex
-}
-
-type FaceVertex struct {
-	VertexIndex   int
-	TexCoordIndex int
-	NormalIndex   int
 }
